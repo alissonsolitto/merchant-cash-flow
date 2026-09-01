@@ -8,10 +8,6 @@ A arquitetura projetada tem como objetivo demonstrar os requisitos funcionais e 
 
 ## Architecture Decision Record (ADR)
 
-As decisões de arquitetura estão documentadas no formato **Contexto / Decisão / Alternativas ou Consequências**.
-
-## Decisões de arquitetura (ADR)
-
 Registradas em [docs/adr](docs/adr) no formato *Contexto → Opções consideradas → Decisão → Consequências*.
 
 - [001-organizacao-arquitetura-projeto](adr/001-organizacao-arquitetura-projeto.md)
