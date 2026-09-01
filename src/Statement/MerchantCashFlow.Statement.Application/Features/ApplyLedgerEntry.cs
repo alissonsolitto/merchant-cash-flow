@@ -11,7 +11,7 @@ public interface IApplyLedgerEntry: IUseCase<ApplyLedgerEntry.Input> { }
 
 public sealed class ApplyLedgerEntry: IApplyLedgerEntry
 {
-    public sealed record Input(Guid LedgerId, string DocumentHash, string Type, decimal Amount, DateTimeOffset InsertedAt);
+    public sealed record Input(Guid LedgerId, string DocumentHash, string AccountNumberHash, string Type, decimal Amount, DateTimeOffset InsertedAt);
 
     private readonly DbCashFlowStatementContext _context;
 
@@ -32,7 +32,7 @@ public sealed class ApplyLedgerEntry: IApplyLedgerEntry
         {
             if (await this.TryRegisterAsync(input.LedgerId, cancellationToken))
             {
-                await this.AccumulateAsync(input.DocumentHash, statementDate, credit, debit, cancellationToken);
+                await this.AccumulateAsync(input.DocumentHash, input.AccountNumberHash, statementDate, credit, debit, cancellationToken);
             }
         }, cancellationToken);
     }
@@ -52,11 +52,11 @@ public sealed class ApplyLedgerEntry: IApplyLedgerEntry
         return rows == 1;
     }
 
-    private async Task AccumulateAsync(string documentHash, DateOnly statementDate, decimal credit, decimal debit, CancellationToken cancellationToken) =>
+    private async Task AccumulateAsync(string documentHash, string accountNumberHash, DateOnly statementDate, decimal credit, decimal debit, CancellationToken cancellationToken) =>
         await this._context.Database.ExecuteSqlAsync($"""
-            INSERT INTO statement_daily (document_hash, statement_date, credit, debit, updated_at)
-            VALUES ({documentHash}, {statementDate}, {credit}, {debit}, {DateTimeOffset.UtcNow})
-            ON CONFLICT (document_hash, statement_date) DO UPDATE SET
+            INSERT INTO statement_daily (document_hash, account_number_hash, statement_date, credit, debit, updated_at)
+            VALUES ({documentHash}, {accountNumberHash}, {statementDate}, {credit}, {debit}, {DateTimeOffset.UtcNow})
+            ON CONFLICT (document_hash, account_number_hash, statement_date) DO UPDATE SET
                 credit = statement_daily.credit + excluded.credit,
                 debit = statement_daily.debit + excluded.debit,
                 updated_at = excluded.updated_at

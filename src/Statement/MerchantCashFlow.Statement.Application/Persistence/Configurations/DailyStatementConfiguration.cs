@@ -8,7 +8,7 @@ public sealed class DailyStatementConfiguration: IEntityTypeConfiguration<DailyS
 {
     public void Configure(EntityTypeBuilder<DailyStatement> builder)
     {
-        builder.HasKey(e => new { e.DocumentHash, e.StatementDate }).HasName("pk_statement_daily");
+        builder.HasKey(e => new { e.DocumentHash, e.AccountNumberHash, e.StatementDate }).HasName("pk_statement_daily");
 
         builder.ToTable("statement_daily");
 
@@ -16,6 +16,11 @@ public sealed class DailyStatementConfiguration: IEntityTypeConfiguration<DailyS
             .IsRequired()
             .HasMaxLength(44)
             .HasColumnName("document_hash");
+
+        builder.Property(e => e.AccountNumberHash)
+            .IsRequired()
+            .HasMaxLength(44)
+            .HasColumnName("account_number_hash");
 
         builder.Property(e => e.StatementDate)
             .IsRequired()

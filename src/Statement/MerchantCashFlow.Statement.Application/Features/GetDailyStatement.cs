@@ -8,7 +8,7 @@ public interface IGetDailyStatement: IUseCase<GetDailyStatement.Input, GetDailyS
 
 public sealed class GetDailyStatement: IGetDailyStatement
 {
-    public sealed record Input(string DocumentHash, DateOnly Date);
+    public sealed record Input(string DocumentHash, string AccountNumberHash, DateOnly Date);
     public sealed record Output(DateOnly Date, decimal Credit, decimal Debit, decimal Balance);
 
     private readonly DbCashFlowStatementContext _context;
@@ -19,7 +19,11 @@ public sealed class GetDailyStatement: IGetDailyStatement
     {
         var daily = await this._context.Daily
             .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.DocumentHash == input.DocumentHash && d.StatementDate == input.Date, cancellationToken);
+            .FirstOrDefaultAsync(
+                d => d.DocumentHash == input.DocumentHash
+                    && d.AccountNumberHash == input.AccountNumberHash
+                    && d.StatementDate == input.Date,
+                cancellationToken);
 
         return daily is null
             ? new Output(input.Date, 0m, 0m, 0m)

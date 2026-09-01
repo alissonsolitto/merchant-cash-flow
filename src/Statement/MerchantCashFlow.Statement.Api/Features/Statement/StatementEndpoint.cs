@@ -29,8 +29,9 @@ public static class StatementEndpoint
             {
                 // Identidade vem do gateway, que apaga o que o cliente mandou antes de escrever o valor do token.
                 var documentHash = httpContext.Request.Headers[TokenClaimsHeaders.DocumentHashHeader].ToString();
+                var accountNumberHash = httpContext.Request.Headers[TokenClaimsHeaders.AccountNumberHashHeader].ToString();
 
-                if (string.IsNullOrWhiteSpace(documentHash))
+                if (string.IsNullOrWhiteSpace(documentHash) || string.IsNullOrWhiteSpace(accountNumberHash))
                 {
                     throw AppException.Unauthorized("Request is missing the merchant identification.");
                 }
@@ -40,7 +41,7 @@ public static class StatementEndpoint
                 diagnosticContext.Set("StatementDate", day);
 
                 var output = await getDailyStatement.ExecuteAsync(
-                    new GetDailyStatement.Input(documentHash, day),
+                    new GetDailyStatement.Input(documentHash, accountNumberHash, day),
                     cancellationToken);
 
                 return TypedResults.Ok(output);

@@ -29,6 +29,11 @@ namespace MerchantCashFlow.Statement.Application.Persistence.Migrations
                         .HasColumnType("character varying(44)")
                         .HasColumnName("document_hash");
 
+                    b.Property<string>("AccountNumberHash")
+                        .HasMaxLength(44)
+                        .HasColumnType("character varying(44)")
+                        .HasColumnName("account_number_hash");
+
                     b.Property<DateOnly>("StatementDate")
                         .HasColumnType("date")
                         .HasColumnName("statement_date");
@@ -51,7 +56,7 @@ namespace MerchantCashFlow.Statement.Application.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
-                    b.HasKey("DocumentHash", "StatementDate")
+                    b.HasKey("DocumentHash", "AccountNumberHash", "StatementDate")
                         .HasName("pk_statement_daily");
 
                     b.ToTable("statement_daily", (string)null);

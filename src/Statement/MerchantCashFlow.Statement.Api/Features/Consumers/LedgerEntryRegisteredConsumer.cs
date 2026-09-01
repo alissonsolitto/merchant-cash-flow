@@ -15,6 +15,7 @@ public sealed class LedgerEntryRegisteredConsumer: IConsumer<LedgerEntryRegister
         var input = new ApplyLedgerEntry.Input(
             context.Message.LedgerId,
             context.Message.DocumentHash,
+            context.Message.AccountNumberHash,
             context.Message.Type,
             context.Message.Amount,
             context.Message.InsertedAt);

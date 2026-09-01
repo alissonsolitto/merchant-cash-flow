@@ -16,6 +16,7 @@ namespace MerchantCashFlow.Statement.Application.Persistence.Migrations
                 columns: table => new
                 {
                     document_hash = table.Column<string>(type: "character varying(44)", maxLength: 44, nullable: false),
+                    account_number_hash = table.Column<string>(type: "character varying(44)", maxLength: 44, nullable: false),
                     statement_date = table.Column<DateOnly>(type: "date", nullable: false),
                     credit = table.Column<decimal>(type: "numeric(19,2)", nullable: false),
                     debit = table.Column<decimal>(type: "numeric(19,2)", nullable: false),
@@ -24,7 +25,7 @@ namespace MerchantCashFlow.Statement.Application.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_statement_daily", x => new { x.document_hash, x.statement_date });
+                    table.PrimaryKey("pk_statement_daily", x => new { x.document_hash, x.account_number_hash, x.statement_date });
                 });
 
             migrationBuilder.CreateTable(
