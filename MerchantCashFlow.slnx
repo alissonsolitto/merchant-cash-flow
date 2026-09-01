@@ -1,0 +1,39 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path=".editorconfig" />
+    <File Path=".env.example" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path=".globalconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="global.json" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Auth/">
+    <Project Path="src/Auth/MerchantCashFlow.Auth.Api/MerchantCashFlow.Auth.Api.csproj" />
+    <Project Path="src/Auth/MerchantCashFlow.Auth.Application/MerchantCashFlow.Auth.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Gateway/">
+    <Project Path="src/Gateway/MerchantCashFlow.Gateway/MerchantCashFlow.Gateway.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Ledger/">
+    <Project Path="src/Ledger/MerchantCashFlow.Ledger.Api/MerchantCashFlow.Ledger.Api.csproj" />
+    <Project Path="src/Ledger/MerchantCashFlow.Ledger.Application/MerchantCashFlow.Ledger.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Infrastructure/MerchantCashFlow.Infrastructure/MerchantCashFlow.Infrastructure.csproj" Id="29e552c3-e0da-4e40-b273-fcc793c30890" />
+  </Folder>
+  <Folder Name="/src/Statement/">
+    <Project Path="src/Statement/MerchantCashFlow.Statement.Api/MerchantCashFlow.Statement.Api.csproj" />
+    <Project Path="src/Statement/MerchantCashFlow.Statement.Application/MerchantCashFlow.Statement.Application.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MerchantCashFlow.IntegrationTests/MerchantCashFlow.IntegrationTests.csproj" />
+    <Project Path="tests/MerchantCashFlow.PerformanceTests/MerchantCashFlow.PerformanceTests.csproj" />
+  </Folder>
+</Solution>

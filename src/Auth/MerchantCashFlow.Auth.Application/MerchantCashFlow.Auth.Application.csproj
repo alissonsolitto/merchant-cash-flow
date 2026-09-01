@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\MerchantCashFlow.Infrastructure\MerchantCashFlow.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
